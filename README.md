@@ -1,13 +1,13 @@
 # The Game of Life
 **Author:** Manuel E. Topete Ortega
 
---
+---
 
 Ruby version: 2.7.2
 
 MiniTest: 5.8.4
 
---
+---
 
 # Running tests:
 
