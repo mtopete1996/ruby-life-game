@@ -17,6 +17,14 @@ class TestGrid < Minitest::Test
     assert_equal 7, grid_setup[0].length
   end
 
+  def test_randomize_method
+    grid_setup = Grid.setup!(2, 3)
+
+    grid_setup.each do |row|
+      assert row.none? { |col| col > 1 }
+    end
+  end
+
   private
 
   def setup
