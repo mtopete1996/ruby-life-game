@@ -1,4 +1,5 @@
-require './grid.rb'
+require './grid'
+require './logger'
 
 class App
   def initialize(rows, cols)
@@ -13,9 +14,18 @@ class App
     @grid ||= Grid.setup!(rows, cols)
   end
 
+  def logger
+    @logger ||= Logger.new(grid)
+  end
+
+  def start
+    logger.print_grid
+  end
+
   class << self
     def start!(rows, cols)
-      new(rows, cols)
+      app = new(rows, cols)
+      app.start
     end
   end
 end
