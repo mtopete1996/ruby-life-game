@@ -8,7 +8,7 @@ class Logger
   def print_grid
     grid.each do |row|
       row.each do |cell|
-        print "#{cell} "
+        print "#{cell.state_as_number} "
       end
       puts
     end
