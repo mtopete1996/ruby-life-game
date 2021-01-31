@@ -14,14 +14,9 @@ class App
     @grid ||= Grid.setup!(rows, cols)
   end
 
-  def start
-    grid.print!
-  end
-
   class << self
     def start!(rows, cols)
-      app = new(rows, cols)
-      app.start
+      new(rows, cols)
     end
   end
 end

@@ -23,14 +23,15 @@ class Cell
     neighbours.grid = grid
   end
 
+  def has_to_die?
+    cells_around = neighbours.check!
+    cells_around < 2 || cells_around > 3
+  end
+
   def state_as_number
     return 1 if alive?
 
     0
-  end
-
-  def neighbours
-    @neighbours ||= Neighbour.new(self)
   end
 
   private
@@ -43,12 +44,6 @@ class Cell
     @position = pos
   end
 
-  def out_of_limits?(pos)
-    return unless grid
-
-    pos[:col] >= cols || pos[:row] >= rows
-  end
-
   def col
     @col ||= position[:col]
   end
@@ -57,6 +52,16 @@ class Cell
     return unless grid
 
     @cols ||= grid.cols
+  end
+
+  def neighbours
+    @neighbours ||= Neighbour.new(self)
+  end
+
+  def out_of_limits?(pos)
+    return unless grid
+
+    pos[:col] >= cols || pos[:row] >= rows
   end
 
   def row

@@ -1,8 +1,11 @@
 require 'minitest/autorun'
+require_relative './support/hardcode_grid_support'
 require_relative '../app/grid'
 require_relative '../app/cell'
 
 class TestCell < Minitest::Test
+  include HardcodeGridSupport
+
   def test_is_alive_method
     assert alive_cell.alive?, 'Cell should be alive'
   end
@@ -48,10 +51,16 @@ class TestCell < Minitest::Test
     assert_nil alive_cell.grid
   end
 
+  def test_cell_has_to_die_method
+    grid = Grid.new(3, 3, hardcode_grid)
+    alive_cell(grid)
+    refute alive_cell.has_to_die?, 'Cell has to die'
+  end
+
   private
 
-  def alive_cell
-    @alive_cell ||= Cell.new state: :alive, position: { row: 2, col: 1 }
+  def alive_cell(grid_object = nil)
+    @alive_cell ||= Cell.new state: :alive, position: { row: 1, col: 1 }, grid: grid_object
   end
 
   def dead_cell
