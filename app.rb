@@ -14,12 +14,8 @@ class App
     @grid ||= Grid.setup!(rows, cols)
   end
 
-  def logger
-    @logger ||= Logger.new(grid)
-  end
-
   def start
-    logger.print_grid
+    grid.print!
   end
 
   class << self

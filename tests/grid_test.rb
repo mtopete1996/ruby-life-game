@@ -1,31 +1,45 @@
 require 'minitest/autorun'
+require_relative './support/hardcode_grid_support'
 require '../grid'
 
 class TestGrid < Minitest::Test
-  def test_check_neighbours
-    assert_equal [[0, 1, 1], [0, 0, 0], [0, 0, 0]], hardcode_grid.object
-    assert_equal 2, hardcode_grid.check_neighbours(1, 1)
+  include HardcodeGridSupport
+
+  def test_initialize_with_valid_args
+    refute_nil grid
+    assert_equal 8, grid.rows
+    assert_equal 9, grid.cols
+    assert_equal 8, grid.object.length
+    assert_equal 9, grid.object[0].length
+    assert_equal 9, grid.object[1].length
+
+    assert_equal({ row: 0, col: 0 }, grid.object[0][0].position)
+    assert_equal({ row: 1, col: 1 }, grid.object[1][1].position)
+  end
+
+  def test_initialize_with_invalid_args
+    assert_raises(ArgumentError) { grid(-1, -4) }
+  end
+
+  def test_initialize_with_predefined_object
+    refute_nil grid(3, 3, hardcode_grid)
+    assert grid.assign_self_to_cells!
+    assert_equal hardcode_grid, grid.object
   end
 
   def test_grid_object_is_right_size
-    assert_equal 8, grid.send(:rows)
-    assert_equal 9, grid.send(:cols)
+    assert_equal 8, grid.rows
+    assert_equal 9, grid.cols
 
     assert_equal 8, grid.object.length
     assert_equal 9, grid.object[0].length
-  end
-
-  def test_neighbours_method
-    neighbours = [[2, 2], [2, 3], [2, 4], [3, 2], [3, 4], [4, 2], [4, 3], [4, 4]]
-
-    assert_equal neighbours, grid.send(:neighbours, 3, 3)
   end
 
   def test_randomize_method
     grid_setup = Grid.setup!(3, 3)
 
     grid_setup.each do |row|
-      assert row.none? { |col| col > 1 }
+      assert row.all? { |col| col.instance_of?(Cell) }, 'All values should be a Cell instance'
     end
   end
 
@@ -36,14 +50,14 @@ class TestGrid < Minitest::Test
     assert_equal 7, grid_setup[0].length
   end
 
-  private
-
-  def hardcode_grid
-    obj = [[0, 1, 1], [0, 0, 0], [0, 0, 0]]
-    Grid.new(3, 3, obj)
+  def test_random_state_method
+    assert grid.send :random_state, grid.object[2][3]
+    assert Cell::STATES.include?(grid.object[2][3].state)
   end
 
-  def grid
-    @grid ||= Grid.new(8, 9)
+  private
+
+  def grid(rows = 8, cols = 9, obj = nil)
+    @grid ||= Grid.new(rows, cols, obj)
   end
 end

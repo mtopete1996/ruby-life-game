@@ -1,0 +1,15 @@
+AllCops:
+  NewCops: enable
+
+Layout/LineLength:
+  Max: 115
+
+Style/Documentation:
+  Enabled: false
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Metrics/AbcSize:
+  Exclude:
+    - 'tests/*_test.rb'

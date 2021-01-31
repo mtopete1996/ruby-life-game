@@ -1,6 +1,6 @@
 class Logger
   def initialize(grid)
-    @grid = grid
+    @grid = grid.object
   end
 
   attr_reader :grid
