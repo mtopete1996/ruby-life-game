@@ -1,5 +1,5 @@
-require './logger'
-require './cell'
+require_relative './logger'
+require_relative './cell'
 
 class Grid
   def initialize(rows, cols, obj = nil)
@@ -44,7 +44,9 @@ class Grid
 
   class << self
     def setup!(rows, cols)
-      new(rows, cols).randomize!
+      grid = new(rows, cols)
+      grid.randomize!
+      grid
     end
   end
 

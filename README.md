@@ -12,7 +12,11 @@ MiniTest: 5.8.4
 # Running tests:
 
 To run all tests issue the next command:
-`ruby -Ilib:test tests/*.rb`
+```
+for file in tests/*_test.rb; do
+  ruby -Ilib:test $file
+done
+```
 
 To run a specific file:
 `ruby -Ilib:test tests/grid_test.rb`

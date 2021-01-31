@@ -1,6 +1,6 @@
 require 'minitest/autorun'
 require_relative './support/hardcode_grid_support'
-require '../grid'
+require_relative '../app/grid'
 
 class TestGrid < Minitest::Test
   include HardcodeGridSupport
@@ -38,7 +38,7 @@ class TestGrid < Minitest::Test
   def test_randomize_method
     grid_setup = Grid.setup!(3, 3)
 
-    grid_setup.each do |row|
+    grid_setup.object.each do |row|
       assert row.all? { |col| col.instance_of?(Cell) }, 'All values should be a Cell instance'
     end
   end
@@ -46,8 +46,8 @@ class TestGrid < Minitest::Test
   def test_setup_class_method
     grid_setup = Grid.setup!(6, 7)
 
-    assert_equal 6, grid_setup.length
-    assert_equal 7, grid_setup[0].length
+    assert_equal 6, grid_setup.object.length
+    assert_equal 7, grid_setup.object[0].length
   end
 
   def test_random_state_method

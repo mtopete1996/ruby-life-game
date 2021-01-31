@@ -1,5 +1,5 @@
-require './grid'
-require './logger'
+require_relative './grid'
+require_relative './logger'
 
 class App
   def initialize(rows, cols)

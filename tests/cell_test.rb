@@ -1,6 +1,6 @@
 require 'minitest/autorun'
-require '../grid'
-require '../cell'
+require_relative '../app/grid'
+require_relative '../app/cell'
 
 class TestCell < Minitest::Test
   def test_is_alive_method

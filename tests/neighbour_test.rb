@@ -1,7 +1,7 @@
 require 'minitest/autorun'
 require_relative './support/hardcode_grid_support'
-require '../neighbour'
-require '../cell'
+require_relative '../app/neighbour'
+require_relative '../app/cell'
 
 class TestNeighbour < Minitest::Test
   include HardcodeGridSupport

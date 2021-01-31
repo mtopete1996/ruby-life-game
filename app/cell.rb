@@ -1,4 +1,4 @@
-require './neighbour'
+require_relative './neighbour'
 
 class Cell
   def initialize(data)

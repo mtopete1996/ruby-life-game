@@ -1,4 +1,4 @@
-require_relative '../../cell'
+require_relative '../../app/cell'
 
 module HardcodeGridSupport
   def hardcode_grid
