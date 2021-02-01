@@ -4,15 +4,17 @@ class Neighbour
   def initialize(cell)
     @row = cell.position[:row]
     @col = cell.position[:col]
-    @grid = cell.grid if cell.grid
+    @grid = cell&.grid
   end
 
   def check!
     alive = 0
-    around.each_value do |cell|
-      next unless cell[0] && cell[1]
 
-      alive += 1 if grid.object[cell[0]][cell[1]].alive?
+    around.each_value do |cell|
+      x, y = cell
+      next unless x && y
+
+      alive += 1 if grid.object[x][y].previous_state == :alive
     end
     alive
   end
@@ -30,9 +32,7 @@ class Neighbour
   end
 
   def cols
-    return unless grid
-
-    @cols ||= grid.cols
+    @cols ||= grid&.cols
   end
 
   def down_neighbours
@@ -74,9 +74,7 @@ class Neighbour
   end
 
   def rows
-    return unless grid
-
-    @rows ||= grid.rows
+    @rows ||= grid&.rows
   end
 
   def up_neighbours

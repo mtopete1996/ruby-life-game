@@ -21,4 +21,9 @@ class App
   end
 end
 
-App.start!(10, 10)
+app = App.new(4, 4)
+app.grid.play!
+puts '---'
+app.grid.play!
+puts '---'
+app.grid.play!

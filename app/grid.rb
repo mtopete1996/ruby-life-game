@@ -13,10 +13,8 @@ class Grid
   attr_reader :cols, :rows
 
   def assign_self_to_cells!
-    object.each do |row|
-      row.each_index do |col_index|
-        row[col_index].grid = self
-      end
+    loop_object do |cell|
+      cell.grid = self
     end
   end
 
@@ -31,15 +29,30 @@ class Grid
   end
 
   def randomize!
-    object.each do |row|
-      row.each_index do |col_index|
-        random_state(row[col_index])
-      end
+    loop_object do |cell|
+      random_state(cell)
     end
   end
 
   def print!
     logger.print_grid
+  end
+
+  def play!
+    update!
+    print!
+  end
+
+  def update!
+    loop_object do |cell|
+      next cell.dead! if cell.to_die?
+
+      cell.alive! if cell.can_revive?
+    end
+
+    loop_object do |cell|
+      cell.previous_state = cell.state
+    end
   end
 
   class << self
@@ -52,14 +65,22 @@ class Grid
 
   private
 
+  def loop_object(&block)
+    object.each do |row|
+      row.each do |cell|
+        block.call(cell)
+      end
+    end
+  end
+
   def logger
     @logger ||= Logger.new(self)
   end
 
   def random_state(cell)
-    return cell.alive! if rand(2) == 1
+    return cell.alive if rand(2) == 1
 
-    cell.dead!
+    cell.dead
   end
 
   def valid_object?

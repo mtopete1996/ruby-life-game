@@ -4,9 +4,11 @@ class Cell
   def initialize(data)
     @state = data[:state] || :dead
     @grid = data[:grid]
+    @previous_state = state
     @position = assign_position(data[:position])
   end
 
+  attr_accessor :previous_state
   attr_reader :grid, :position, :state
 
   STATES = %i[alive dead].freeze
@@ -16,6 +18,22 @@ class Cell
     define_method("#{status}!", -> { @state = status })
   end
 
+  def alive
+    alive!
+    @previous_state = :alive
+  end
+
+  def dead
+    dead!
+    @previous_state = :dead
+  end
+
+  def can_revive?
+    return if alive?
+
+    neighbours.check! == 3
+  end
+
   def grid=(grid)
     return unless grid.instance_of?(Grid)
 
@@ -23,7 +41,7 @@ class Cell
     neighbours.grid = grid
   end
 
-  def has_to_die?
+  def to_die?
     cells_around = neighbours.check!
     cells_around < 2 || cells_around > 3
   end
@@ -49,9 +67,7 @@ class Cell
   end
 
   def cols
-    return unless grid
-
-    @cols ||= grid.cols
+    @cols ||= grid&.cols
   end
 
   def neighbours
@@ -69,8 +85,6 @@ class Cell
   end
 
   def rows
-    return unless grid
-
-    @rows ||= grid.rows
+    @rows ||= grid&.rows
   end
 end

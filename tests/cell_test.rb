@@ -54,7 +54,7 @@ class TestCell < Minitest::Test
   def test_cell_has_to_die_method
     grid = Grid.new(3, 3, hardcode_grid)
     alive_cell(grid)
-    refute alive_cell.has_to_die?, 'Cell has to die'
+    refute alive_cell.to_die?, 'Cell has to die'
   end
 
   private
