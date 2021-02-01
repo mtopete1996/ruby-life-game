@@ -10,6 +10,9 @@ Style/Documentation:
 Style/FrozenStringLiteralComment:
   Enabled: false
 
+Style/InfiniteLoop:
+  Enabled: false
+
 Metrics/AbcSize:
   Exclude:
     - 'tests/*_test.rb'
