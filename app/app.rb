@@ -1,5 +1,4 @@
 require_relative './grid'
-require_relative './logger'
 
 class App
   def initialize(rows, cols)
@@ -16,14 +15,13 @@ class App
 
   class << self
     def start!(rows, cols)
-      new(rows, cols)
+      app = new(rows, cols)
+
+      while true do
+        app.grid.play!
+        puts '--------'
+        sleep 1.5
+      end
     end
   end
 end
-
-app = App.new(4, 4)
-app.grid.play!
-puts '---'
-app.grid.play!
-puts '---'
-app.grid.play!
