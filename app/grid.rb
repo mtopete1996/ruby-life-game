@@ -1,6 +1,8 @@
 require_relative './logger'
 require_relative './cell'
 
+# The Grid class is where the rendering of the grid itself happens, also is where
+# the cells are initialized and randomized
 class Grid
   def initialize(rows, cols, obj = nil)
     @cols = cols

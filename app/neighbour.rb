@@ -1,5 +1,6 @@
 require_relative './grid'
 
+# The Neighbour class is where all the cell neighbour calculations are made
 class Neighbour
   def initialize(cell)
     @row = cell.position[:row]

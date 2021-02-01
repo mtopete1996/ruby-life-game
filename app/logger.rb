@@ -1,3 +1,4 @@
+# The Logger class is responsable of printing the grid
 class Logger
   def initialize(grid)
     @grid = grid.object

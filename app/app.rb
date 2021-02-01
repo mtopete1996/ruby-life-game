@@ -1,5 +1,6 @@
 require_relative './grid'
 
+# The App class is where the configuration of the app is done and runs the game
 class App
   def initialize(rows, cols)
     @cols = cols
@@ -13,15 +14,17 @@ class App
     @grid ||= Grid.setup!(rows, cols)
   end
 
+  def start
+    while true do
+      grid.play!
+      puts '--------'
+      sleep 1.5
+    end
+  end
+
   class << self
     def start!(rows, cols)
-      app = new(rows, cols)
-
-      while true do
-        app.grid.play!
-        puts '--------'
-        sleep 1.5
-      end
+      new(rows, cols).start
     end
   end
 end

@@ -1,5 +1,6 @@
 require_relative './neighbour'
 
+# The Cell class is where all the cell actions happens and where the cell state is kept
 class Cell
   def initialize(data)
     @state = data[:state] || :dead
