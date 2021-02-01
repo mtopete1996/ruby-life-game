@@ -20,6 +20,12 @@ class Grid
     end
   end
 
+  def dead?
+    object.all? do |row|
+      row.all?(&:dead?)
+    end
+  end
+
   def object(obj = nil)
     return obj if obj
 
@@ -36,13 +42,13 @@ class Grid
     end
   end
 
-  def print!
-    logger.print_grid
-  end
-
   def play!
     update!
     print!
+  end
+
+  def print!
+    logger.print_grid
   end
 
   def update!
