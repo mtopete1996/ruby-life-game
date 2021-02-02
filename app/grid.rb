@@ -1,9 +1,11 @@
-require_relative './logger'
 require_relative './cell'
+require_relative '../support/render_support'
 
 # The Grid class is where the rendering of the grid itself happens, also is where
 # the cells are initialized and randomized
 class Grid
+  include RenderSupport
+
   def initialize(rows, cols, obj = nil)
     @cols = cols
     @rows = rows
@@ -14,7 +16,7 @@ class Grid
 
   attr_reader :cols, :rows
 
-  def assign_self_to_cells!
+  def assign_self_to_cells
     loop_object do |cell|
       cell.grid = self
     end
@@ -31,68 +33,43 @@ class Grid
 
     @object ||= begin
       (0...rows).map do |row|
-        Array.new(cols) { |col| Cell.new(position: { row: row, col: col }, grid: self) }
+        build_cols(row)
       end
     end
   end
 
-  def randomize!
-    loop_object do |cell|
-      random_state(cell)
-    end
+  def play
+    update
+    log
   end
 
-  def play!
-    update!
-    print!
-  end
-
-  def print!
-    logger.print_grid
-  end
-
-  def update!
-    loop_object do |cell|
-      next cell.dead! if cell.to_die?
-
-      cell.alive! if cell.can_revive?
-    end
-
-    loop_object do |cell|
-      cell.previous_state = cell.state
-    end
+  def update
+    loop_object { |cell| cell.neighbours.live_or_die }
+    assign_previous_state
   end
 
   class << self
     def setup!(rows, cols)
       grid = new(rows, cols)
-      grid.randomize!
+      grid.randomize
       grid
     end
   end
 
   private
 
-  def loop_object(&block)
-    object.each do |row|
-      row.each do |cell|
-        block.call(cell)
-      end
+  def assign_previous_state
+    loop_object do |cell|
+      cell.previous_state = cell.state
     end
   end
 
-  def logger
-    @logger ||= Logger.new(self)
-  end
-
-  def random_state(cell)
-    return cell.alive if rand(2) == 1
-
-    cell.dead
+  def build_cols(row)
+    Array.new(cols) { |col| Cell.new(position: { row: row, col: col }, grid: self) }
   end
 
   def valid_object?
-    return false if object.nil?
+    return true unless object
 
     object.instance_of?(Array) && !object.flatten.empty?
   end

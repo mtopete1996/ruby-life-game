@@ -20,7 +20,7 @@ class TestNeighbour < Minitest::Test
   private
 
   def grid
-    @grid ||= Grid.new(3, 3, hardcode_grid).tap(&:assign_self_to_cells!)
+    @grid ||= Grid.new(3, 3, hardcode_grid).tap(&:assign_self_to_cells)
   end
 
   def neighbours

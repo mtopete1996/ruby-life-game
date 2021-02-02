@@ -1,3 +1,3 @@
 require_relative './app/app'
 
-App.start!(10, 15)
+App.start!(4, 5)

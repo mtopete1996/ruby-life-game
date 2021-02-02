@@ -6,7 +6,7 @@ class Cell
     @state = data[:state] || :dead
     @grid = data[:grid]
     @previous_state = state
-    @position = assign_position(data[:position])
+    assign_position(data[:position])
   end
 
   attr_accessor :previous_state
@@ -29,12 +29,6 @@ class Cell
     @previous_state = :dead
   end
 
-  def can_revive?
-    return if alive?
-
-    neighbours.check! == 3
-  end
-
   def grid=(grid)
     return unless grid.instance_of?(Grid)
 
@@ -42,9 +36,14 @@ class Cell
     neighbours.grid = grid
   end
 
-  def to_die?
-    cells_around = neighbours.check!
-    cells_around < 2 || cells_around > 3
+  def neighbours
+    @neighbours ||= Neighbour.new(self)
+  end
+
+  def random_state
+    alive if rand(2) == 1
+
+    dead
   end
 
   def state_as_number
@@ -56,9 +55,7 @@ class Cell
   private
 
   def assign_position(pos)
-    raise ArgumentError, 'Position must exist: col and row' unless pos[:col] && pos[:row]
-    raise ArgumentError, 'Position must not be out of limits' if out_of_limits?(pos)
-    raise ArgumentError, 'Position must be zero or more' unless pos[:col] >= 0 && pos[:row] >= 0
+    return if validate_position(pos[:row], pos[:col])
 
     @position = pos
   end
@@ -71,14 +68,10 @@ class Cell
     @cols ||= grid&.cols
   end
 
-  def neighbours
-    @neighbours ||= Neighbour.new(self)
-  end
-
-  def out_of_limits?(pos)
+  def out_of_limits?(pos_row, pos_col)
     return unless grid
 
-    pos[:col] >= cols || pos[:row] >= rows
+    pos_col >= cols || pos_row >= rows
   end
 
   def row
@@ -87,5 +80,11 @@ class Cell
 
   def rows
     @rows ||= grid&.rows
+  end
+
+  def validate_position(pos_row, pos_col)
+    raise ArgumentError, 'Position must exist: col and row' unless pos_col && pos_row
+    raise ArgumentError, 'Position must not be out of limits' if out_of_limits?(pos_row, pos_col)
+    raise ArgumentError, 'Position must be zero or more' unless pos_col >= 0 && pos_row >= 0
   end
 end

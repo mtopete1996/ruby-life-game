@@ -15,8 +15,8 @@ class App
   end
 
   def start
-    while !grid.dead?
-      grid.play!
+    until grid.dead?
+      grid.play
       puts '--------'
       sleep 1.5
     end

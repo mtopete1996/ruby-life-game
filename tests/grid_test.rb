@@ -23,7 +23,7 @@ class TestGrid < Minitest::Test
 
   def test_initialize_with_predefined_object
     refute_nil grid(3, 3, hardcode_grid)
-    assert grid.assign_self_to_cells!
+    assert grid.assign_self_to_cells
     assert_equal hardcode_grid, grid.object
   end
 
