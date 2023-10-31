@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
-source "https://rubygems.org"
+source 'https://rubygems.org'
 
-gem 'rubocop'
+gem 'byebug'
 gem 'rspec'
+gem 'rubocop'
+gem 'rubocop-rspec', require: false

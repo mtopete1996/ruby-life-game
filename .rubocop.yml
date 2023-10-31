@@ -1,6 +1,8 @@
 AllCops:
   NewCops: enable
 
+require: rubocop-rspec
+
 Layout/LineLength:
   Max: 110
 

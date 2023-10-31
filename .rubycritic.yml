@@ -1,4 +1,0 @@
-paths: # Files to analyse.
-  - app/
-  - support/
-  - life_game.rb
