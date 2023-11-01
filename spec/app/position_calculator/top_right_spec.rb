@@ -7,9 +7,13 @@ require_relative '../../../app/position_calculator/top_right'
 
 describe PositionCalculator::TopRight do
   describe '#call' do
-    subject { described_class.new(coord_x:, coord_y:).call }
+    subject { described_class.new(coord_x:, coord_y:, max_x:, max_y:).call }
 
     context 'when grid is 3 x 3' do
+      # 2 is max because we start counting from 0
+      let(:max_x) { 2 }
+      let(:max_y) { 2 }
+
       context 'when cell x=1, y=1' do
         let(:coord_x) { 1 }
         let(:coord_y) { 1 }
@@ -29,6 +33,13 @@ describe PositionCalculator::TopRight do
         let(:coord_y) { 2 }
 
         it { is_expected.to eq([1, 1]) }
+      end
+
+      context 'when cell x=2, y=2' do
+        let(:coord_x) { 2 }
+        let(:coord_y) { 2 }
+
+        it { is_expected.to eq([nil, nil]) }
       end
     end
   end
