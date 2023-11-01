@@ -2,11 +2,13 @@
 
 module PositionCalculator
   class Base
-    attr_reader :coord_x, :coord_y
+    attr_reader :coord_x, :coord_y, :max_x, :max_y
 
-    def initialize(coord_x:, coord_y:)
+    def initialize(coord_x:, coord_y:, max_x:, max_y:)
       @coord_x = coord_x
       @coord_y = coord_y
+      @max_x = max_x
+      @max_y = max_y
     end
 
     def call
@@ -26,9 +28,11 @@ module PositionCalculator
     end
 
     def nillify_coords
-      return if [coord_x, coord_y].none?(&:negative?)
+      @coord_x = @coord_y = nil if greater_coords
+    end
 
-      @coord_x = @coord_y = nil
+    def greater_coords
+      [coord_x, coord_y].any?(&:negative?) || coord_x > max_x || coord_y > max_y
     end
   end
 end
