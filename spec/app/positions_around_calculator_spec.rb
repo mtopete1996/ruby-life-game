@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative 'rspec_helper'
+require_relative '../rspec_helper'
 
 describe PositionsAroundCalculator do
   describe '#call' do

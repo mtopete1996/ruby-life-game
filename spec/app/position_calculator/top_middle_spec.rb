@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative '../rspec_helper'
+require_relative '../../rspec_helper'
 
 describe PositionCalculator::TopMiddle do
   describe '#call' do
