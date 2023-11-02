@@ -15,16 +15,21 @@ module PositionCalculator
       bottom_right: 'PositionCalculator::BottomRight'
     }.freeze
 
-    def initialize(coord_x:, coord_y:, max_x:, max_y:, position:)
+    class << self
+      def call(coord_x:, coord_y:, max_x:, max_y:, position:)
+        new(coord_x:, coord_y:, max_x:, max_y:).call(position:)
+      end
+    end
+
+    def initialize(coord_x:, coord_y:, max_x:, max_y:)
       @coord_x = coord_x
       @coord_y = coord_y
       @max_x = max_x
       @max_y = max_y
-      @position = position
     end
 
-    def call
-      Object.const_get(POSITION_CLASSES[position])
+    def call(position:)
+      Object.const_get(POSITION_CLASSES[position]).new(coord_x:, coord_y:, max_x:, max_y:)
     end
   end
 end
