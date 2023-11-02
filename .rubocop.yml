@@ -4,7 +4,7 @@ AllCops:
 require: rubocop-rspec
 
 RSpec/NestedGroups:
-  MaxNesting: 4
+  Max: 4
 
 Layout/LineLength:
   Max: 110
