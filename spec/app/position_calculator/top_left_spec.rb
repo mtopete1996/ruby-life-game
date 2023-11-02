@@ -1,9 +1,6 @@
 # frozen_string_literal: true
 
-require 'byebug'
-require 'rspec'
-
-require_relative '../../../app/position_calculator/top_left'
+require_relative '../rspec_helper'
 
 describe PositionCalculator::TopLeft do
   describe '#call' do
