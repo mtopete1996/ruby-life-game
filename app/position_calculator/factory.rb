@@ -24,12 +24,6 @@ module PositionCalculator
     end
 
     def call
-      position_class.new(coord_x:, coord_y:, max_x:, max_y:).call
-    end
-
-    private
-
-    def position_class
       Object.const_get(POSITION_CLASSES[position])
     end
   end
