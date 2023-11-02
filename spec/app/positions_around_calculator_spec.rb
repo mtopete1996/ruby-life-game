@@ -4,11 +4,12 @@ require_relative 'rspec_helper'
 
 describe PositionsAroundCalculator do
   describe '#call' do
-    subject(:positions_hash) { described_class.new(coord_x:, coord_y:, max_x:, max_y:).call }
+    subject(:positions_hash) { described_class.new(coord_x:, coord_y:).call }
 
-    # 2 is max because we start counting from 0
-    let(:max_x) { 2 }
-    let(:max_y) { 2 }
+    before do
+      stub_const('Grid::ROWS', 2)
+      stub_const('Grid::COLS', 2)
+    end
 
     context 'when coord_x=1 and coord_y=1' do
       let(:coord_x) { 1 }

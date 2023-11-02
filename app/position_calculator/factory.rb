@@ -3,7 +3,7 @@
 module PositionCalculator
   class Factory
     # Attributes
-    attr_reader :coord_x, :coord_y, :max_x, :max_y, :position
+    attr_reader :coord_x, :coord_y, :position
 
     # Constants
     POSITION_CLASSES = {
@@ -19,22 +19,20 @@ module PositionCalculator
 
     # Class methods
     class << self
-      def call(coord_x:, coord_y:, max_x:, max_y:, position:)
-        new(coord_x:, coord_y:, max_x:, max_y:).call(position:)
+      def call(coord_x:, coord_y:, position:)
+        new(coord_x:, coord_y:).call(position:)
       end
     end
 
     # Constructor
-    def initialize(coord_x:, coord_y:, max_x:, max_y:)
+    def initialize(coord_x:, coord_y:)
       @coord_x = coord_x
       @coord_y = coord_y
-      @max_x = max_x
-      @max_y = max_y
     end
 
     # Instance methods
     def call(position:)
-      Object.const_get(POSITION_CLASSES[position]).new(coord_x:, coord_y:, max_x:, max_y:)
+      Object.const_get(POSITION_CLASSES[position]).new(coord_x:, coord_y:)
     end
   end
 end

@@ -4,12 +4,13 @@ require_relative '../rspec_helper'
 
 describe PositionCalculator::BottomRight do
   describe '#call' do
-    subject { described_class.new(coord_x:, coord_y:, max_x:, max_y:).call }
+    subject { described_class.new(coord_x:, coord_y:).call }
 
     context 'when grid is 3 x 3' do
-      # 2 is max because we start counting from 0
-      let(:max_x) { 2 }
-      let(:max_y) { 2 }
+      before do
+        stub_const('Grid::ROWS', 2)
+        stub_const('Grid::COLS', 2)
+      end
 
       context 'when cell x=1, y=1' do
         let(:coord_x) { 1 }

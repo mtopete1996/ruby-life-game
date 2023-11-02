@@ -2,14 +2,12 @@
 
 class PositionsAroundCalculator
   # Attributes
-  attr_reader :coord_x, :coord_y, :max_x, :max_y
+  attr_reader :coord_x, :coord_y
 
   # Constructor
-  def initialize(coord_x:, coord_y:, max_x:, max_y:)
+  def initialize(coord_x:, coord_y:)
     @coord_x = coord_x
     @coord_y = coord_y
-    @max_x = max_x
-    @max_y = max_y
   end
 
   # Instance methods
@@ -22,6 +20,6 @@ class PositionsAroundCalculator
   private
 
   def positions_calculator_factory
-    @positions_calculator_factory ||= PositionCalculator::Factory.new(coord_x:, coord_y:, max_x:, max_y:)
+    @positions_calculator_factory ||= PositionCalculator::Factory.new(coord_x:, coord_y:)
   end
 end

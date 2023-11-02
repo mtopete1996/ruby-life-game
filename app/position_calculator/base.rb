@@ -3,14 +3,12 @@
 module PositionCalculator
   class Base
     # Attributes
-    attr_reader :coord_x, :coord_y, :max_x, :max_y
+    attr_reader :coord_x, :coord_y
 
     # Constructor
-    def initialize(coord_x:, coord_y:, max_x:, max_y:)
+    def initialize(coord_x:, coord_y:)
       @coord_x = coord_x
       @coord_y = coord_y
-      @max_x = max_x
-      @max_y = max_y
     end
 
     # Instance methods
@@ -35,7 +33,7 @@ module PositionCalculator
     end
 
     def greater_coords
-      [coord_x, coord_y].any?(&:negative?) || coord_x > max_x || coord_y > max_y
+      [coord_x, coord_y].any?(&:negative?) || coord_x > Grid::COLS || coord_y > Grid::ROWS
     end
   end
 end
