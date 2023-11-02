@@ -2,8 +2,10 @@
 
 module PositionCalculator
   class Base
+    # Attributes
     attr_reader :coord_x, :coord_y, :max_x, :max_y
 
+    # Constructor
     def initialize(coord_x:, coord_y:, max_x:, max_y:)
       @coord_x = coord_x
       @coord_y = coord_y
@@ -11,6 +13,7 @@ module PositionCalculator
       @max_y = max_y
     end
 
+    # Instance methods
     def call
       calculate_position
       nillify_coords

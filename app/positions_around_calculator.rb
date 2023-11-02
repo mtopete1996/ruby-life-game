@@ -1,8 +1,10 @@
 # frozen_string_literal: true
 
 class PositionsAroundCalculator
+  # Attributes
   attr_reader :coord_x, :coord_y, :max_x, :max_y
 
+  # Constructor
   def initialize(coord_x:, coord_y:, max_x:, max_y:)
     @coord_x = coord_x
     @coord_y = coord_y
@@ -10,6 +12,7 @@ class PositionsAroundCalculator
     @max_y = max_y
   end
 
+  # Instance methods
   def call
     PositionCalculator::Factory::POSITION_CLASSES.keys.each_with_object({}) do |position, obj|
       obj[position] = positions_calculator_factory.call(position:).call
