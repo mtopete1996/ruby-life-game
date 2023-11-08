@@ -4,6 +4,13 @@ class PositionsAroundCalculator
   # Attributes
   attr_reader :coord_x, :coord_y
 
+  # Class methods
+  class << self
+    def call(coord_x:, coord_y:)
+      new(coord_x:, coord_y:).call
+    end
+  end
+
   # Constructor
   def initialize(coord_x:, coord_y:)
     @coord_x = coord_x

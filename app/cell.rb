@@ -10,4 +10,8 @@ class Cell
     @coord_y = coord_y
     @state = state
   end
+
+  def cells_around_positions
+    @cells_around_positions ||= PositionsAroundCalculator.call(coord_x:, coord_y:)
+  end
 end
