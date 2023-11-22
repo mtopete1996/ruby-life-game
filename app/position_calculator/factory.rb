@@ -32,6 +32,19 @@ module PositionCalculator
 
     # Instance methods
     def call(position:)
+      validate_position(position:)
+      create_instance(position:)
+    end
+
+    private
+
+    def validate_position(position:)
+      return if POSITION_CLASSES.keys.include?(position)
+
+      raise(ArgumentError, 'This is not a valid position')
+    end
+
+    def create_instance(position:)
       Object.const_get(POSITION_CLASSES[position]).new(coord_x:, coord_y:)
     end
   end
