@@ -29,10 +29,10 @@ module PositionCalculator
     end
 
     def nillify_coords
-      @coord_x = @coord_y = nil if greater_coords
+      @coord_x = @coord_y = nil if out_of_limits
     end
 
-    def greater_coords
+    def out_of_limits
       [coord_x, coord_y].any?(&:negative?) || coord_x > Grid::COLS || coord_y > Grid::ROWS
     end
   end
