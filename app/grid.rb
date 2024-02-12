@@ -7,11 +7,27 @@ class Grid
 
   class << self
     def init
-      new.object
+      new(grid: nil)
     end
   end
 
+  def initialize(grid: nil)
+    @grid = grid || object
+  end
+
   def object
-    @object ||= Populator.call
+    @object ||= present_or_populate
+  end
+
+  def populate(population_style = :random)
+    Factory::GridObject.call(population_style:)
+  end
+
+  private
+
+  def present_or_populate(population_style = :random)
+    return if @grid
+
+    populate(population_style)
   end
 end

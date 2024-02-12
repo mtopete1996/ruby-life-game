@@ -3,11 +3,14 @@ AllCops:
 
 require: rubocop-rspec
 
+Layout/LineLength:
+  Max: 110
+
 RSpec/NestedGroups:
   Max: 4
 
-Layout/LineLength:
-  Max: 110
+RSpec/MessageSpies:
+  Enabled: false
 
 Style/Documentation:
   Enabled: false
