@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative '../rspec_helper'
+require_relative '../spec_helper'
 
 describe Cell do
   let(:alive_cell) { described_class.new(coord_x: 1, coord_y: 1, state: :alive) }
